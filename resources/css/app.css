@@ -1,0 +1,211 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark mode - High contrast, accessible color scheme */
+@layer base {
+    /* ===================== BACKGROUNDS ===================== */
+
+    /* Main content background */
+    .dark [class*="bg-slate-50"]:not([class*="hover:"]) {
+        background-color: #0f172a !important; /* slate-900 - very dark */
+    }
+
+    /* Cards and containers */
+    .dark [class*="rounded-xl"][class*="bg-white"],
+    .dark [class*="overflow-hidden"][class*="bg-white"] {
+        background-color: #1e293b !important; /* slate-800 */
+    }
+
+    /* Table headers and secondary backgrounds */
+    .dark thead[class*="bg-slate-50"],
+    .dark [class*="bg-slate-100"] {
+        background-color: #334155 !important; /* slate-700 */
+    }
+
+    /* Hover states for table rows */
+    .dark tr:hover {
+        background-color: #334155 !important; /* slate-700 */
+    }
+
+    /* ===================== BORDERS ===================== */
+
+    .dark [class*="border-slate-200"],
+    .dark [class*="border-slate-100"] {
+        border-color: #475569 !important; /* slate-600 - more visible */
+    }
+
+    .dark [class*="divide-slate-200"] > * + *,
+    .dark [class*="divide-slate-100"] > * + * {
+        border-color: #475569 !important; /* slate-600 */
+    }
+
+    /* ===================== TEXT COLORS ===================== */
+
+    /* Primary text - high contrast white */
+    .dark [class*="text-slate-900"],
+    .dark h1,
+    .dark h2,
+    .dark h3,
+    .dark h4,
+    .dark h5,
+    .dark h6 {
+        color: #f8fafc !important; /* slate-50 - pure white-ish */
+    }
+
+    /* Secondary text - still readable */
+    .dark [class*="text-slate-700"],
+    .dark [class*="text-slate-600"] {
+        color: #e2e8f0 !important; /* slate-200 - bright enough to read */
+    }
+
+    /* Muted text */
+    .dark [class*="text-slate-500"],
+    .dark [class*="text-slate-400"] {
+        color: #cbd5e1 !important; /* slate-300 - visible muted */
+    }
+
+    /* ===================== FORM INPUTS ===================== */
+
+    .dark input[class*="border"],
+    .dark select[class*="border"],
+    .dark textarea[class*="border"] {
+        background-color: #1e293b !important; /* slate-800 */
+        border-color: #475569 !important; /* slate-600 */
+        color: #f8fafc !important; /* white text */
+    }
+
+    .dark input:focus,
+    .dark select:focus,
+    .dark textarea:focus {
+        border-color: #3b82f6 !important; /* blue-500 */
+        outline: none;
+    }
+
+    .dark ::placeholder {
+        color: #94a3b8 !important; /* slate-400 - visible but muted */
+    }
+
+    /* ===================== ICONS ===================== */
+
+    .dark
+        svg:not([class*="text-white"]):not([class*="text-blue"]):not(
+            [class*="text-emerald"]
+        ):not([class*="text-red"]):not([class*="text-amber"]) {
+        color: #e2e8f0 !important; /* slate-200 - bright icons */
+    }
+
+    /* ===================== BUTTONS ===================== */
+
+    /* Secondary/outline buttons */
+    .dark button[class*="bg-white"],
+    .dark a[class*="bg-white"] {
+        background-color: #334155 !important; /* slate-700 */
+        border-color: #475569 !important; /* slate-600 */
+        color: #f8fafc !important; /* white text */
+    }
+
+    .dark button[class*="bg-white"]:hover,
+    .dark a[class*="bg-white"]:hover {
+        background-color: #475569 !important; /* slate-600 */
+    }
+
+    /* Danger buttons stay red */
+    .dark [class*="hover:bg-red-50"]:hover {
+        background-color: rgba(127, 29, 29, 0.3) !important;
+    }
+
+    /* ===================== STATUS BADGES ===================== */
+
+    /* Green/Success - high contrast */
+    .dark [class*="bg-emerald-100"],
+    .dark [class*="bg-green-100"] {
+        background-color: rgba(6, 95, 70, 0.6) !important;
+        color: #6ee7b7 !important; /* emerald-300 */
+    }
+
+    .dark [class*="text-emerald-700"],
+    .dark [class*="text-emerald-600"],
+    .dark [class*="text-green-700"] {
+        color: #6ee7b7 !important; /* emerald-300 */
+    }
+
+    /* Blue/Info */
+    .dark [class*="bg-blue-100"] {
+        background-color: rgba(30, 64, 175, 0.6) !important;
+        color: #93c5fd !important; /* blue-300 */
+    }
+
+    .dark [class*="bg-blue-50"] {
+        background-color: rgba(30, 64, 175, 0.3) !important;
+    }
+
+    .dark [class*="text-blue-700"],
+    .dark [class*="text-blue-600"],
+    .dark [class*="text-blue-900"] {
+        color: #93c5fd !important; /* blue-300 */
+    }
+
+    /* Red/Error */
+    .dark [class*="bg-red-100"] {
+        background-color: rgba(153, 27, 27, 0.6) !important;
+        color: #fca5a5 !important; /* red-300 */
+    }
+
+    .dark [class*="text-red-700"],
+    .dark [class*="text-red-600"] {
+        color: #fca5a5 !important; /* red-300 */
+    }
+
+    /* Yellow/Warning */
+    .dark [class*="bg-amber-100"],
+    .dark [class*="bg-yellow-100"] {
+        background-color: rgba(146, 64, 14, 0.6) !important;
+        color: #fcd34d !important; /* amber-300 */
+    }
+
+    .dark [class*="text-amber-700"],
+    .dark [class*="text-yellow-700"] {
+        color: #fcd34d !important; /* amber-300 */
+    }
+
+    /* Orange */
+    .dark [class*="bg-orange-100"] {
+        background-color: rgba(154, 52, 18, 0.6) !important;
+        color: #fdba74 !important; /* orange-300 */
+    }
+
+    .dark [class*="text-orange-700"] {
+        color: #fdba74 !important; /* orange-300 */
+    }
+
+    /* Purple */
+    .dark [class*="bg-purple-100"] {
+        background-color: rgba(107, 33, 168, 0.6) !important;
+        color: #d8b4fe !important; /* purple-300 */
+    }
+
+    /* Gray badges */
+    .dark [class*="bg-slate-100"][class*="text-slate"] {
+        background-color: #334155 !important; /* slate-700 */
+        color: #e2e8f0 !important; /* slate-200 */
+    }
+
+    /* ===================== LINKS ===================== */
+
+    .dark a[class*="text-blue-600"],
+    .dark a[class*="hover:text-blue"] {
+        color: #60a5fa !important; /* blue-400 */
+    }
+
+    .dark a[class*="hover:text-blue"]:hover {
+        color: #93c5fd !important; /* blue-300 */
+    }
+
+    /* ===================== STATS CARDS ===================== */
+
+    .dark [class*="from-blue-500"],
+    .dark [class*="bg-gradient-to-br"] {
+        /* Keep gradient colors - they're good for both modes */
+    }
+}
