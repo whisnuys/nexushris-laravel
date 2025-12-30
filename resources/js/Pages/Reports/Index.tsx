@@ -11,6 +11,14 @@ import {
     TrendingUp,
     Percent,
 } from "lucide-react";
+import {
+    AreaChart,
+    Area,
+    XAxis,
+    YAxis,
+    Tooltip,
+    ResponsiveContainer,
+} from "recharts";
 
 interface AttendanceStats {
     present: number;
@@ -64,9 +72,9 @@ export default function ReportsIndex({
     payrollTrend,
 }: Props) {
     const formatCurrency = (amount: number) =>
-        new Intl.NumberFormat("id-ID", {
+        new Intl.NumberFormat("en-US", {
             style: "currency",
-            currency: "IDR",
+            currency: "USD",
             minimumFractionDigits: 0,
         }).format(amount);
 
@@ -109,7 +117,7 @@ export default function ReportsIndex({
                     color="blue"
                 />
                 <StatsCard
-                    title="Payroll This Month"
+                    title="Net Payroll"
                     value={formatCurrency(payrollStats.totalNet)}
                     icon={DollarSign}
                     color="purple"
@@ -118,7 +126,7 @@ export default function ReportsIndex({
 
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                 {/* Attendance Overview */}
-                <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+                <div className="flex flex-col rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
                     <h3 className="mb-4 font-semibold text-slate-900 dark:text-white">
                         Attendance This Month
                     </h3>
@@ -149,41 +157,72 @@ export default function ReportsIndex({
                         </div>
                     </div>
 
-                    <div className="mt-6">
-                        <p className="mb-2 text-sm text-slate-500 dark:text-slate-400">
+                    <div className="mt-4 flex-1 flex flex-col min-h-0">
+                        <p className="mb-1 text-sm text-slate-500 dark:text-slate-400">
                             Attendance Trend (6 months)
                         </p>
-                        <div className="flex h-32 items-end gap-2">
-                            {attendanceTrend.map((item, index) => {
-                                const maxVal = Math.max(
-                                    ...attendanceTrend.map(
-                                        (t) => t.present || 0
-                                    )
-                                );
-                                const height =
-                                    maxVal > 0
-                                        ? ((item.present || 0) / maxVal) * 100
-                                        : 0;
-                                return (
-                                    <div
-                                        key={index}
-                                        className="flex flex-1 flex-col items-center"
-                                    >
-                                        <div
-                                            className="w-full rounded-t bg-blue-500"
-                                            style={{
-                                                height: `${Math.max(
-                                                    height,
-                                                    5
-                                                )}%`,
-                                            }}
-                                        />
-                                        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                                            {item.month.split(" ")[0]}
-                                        </p>
-                                    </div>
-                                );
-                            })}
+                        <div className="flex-1 min-h-[100px]">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <AreaChart
+                                    data={attendanceTrend.map((item) => ({
+                                        name: item.month.split(" ")[0],
+                                        value: item.present || 0,
+                                    }))}
+                                    margin={{
+                                        top: 5,
+                                        right: 10,
+                                        left: 10,
+                                        bottom: 5,
+                                    }}
+                                >
+                                    <defs>
+                                        <linearGradient
+                                            id="colorAttendance"
+                                            x1="0"
+                                            y1="0"
+                                            x2="0"
+                                            y2="1"
+                                        >
+                                            <stop
+                                                offset="5%"
+                                                stopColor="#3b82f6"
+                                                stopOpacity={0.4}
+                                            />
+                                            <stop
+                                                offset="95%"
+                                                stopColor="#3b82f6"
+                                                stopOpacity={0}
+                                            />
+                                        </linearGradient>
+                                    </defs>
+                                    <XAxis
+                                        dataKey="name"
+                                        axisLine={false}
+                                        tickLine={false}
+                                        tick={{ fontSize: 11, fill: "#94a3b8" }}
+                                    />
+                                    <Tooltip
+                                        contentStyle={{
+                                            backgroundColor: "#1e293b",
+                                            border: "none",
+                                            borderRadius: "8px",
+                                            color: "#fff",
+                                        }}
+                                        formatter={(value: any) => [
+                                            value,
+                                            "Present",
+                                        ]}
+                                    />
+                                    <Area
+                                        type="monotone"
+                                        dataKey="value"
+                                        stroke="#3b82f6"
+                                        strokeWidth={2}
+                                        fillOpacity={1}
+                                        fill="url(#colorAttendance)"
+                                    />
+                                </AreaChart>
+                            </ResponsiveContainer>
                         </div>
                     </div>
                 </div>
@@ -308,35 +347,70 @@ export default function ReportsIndex({
                         <p className="mb-2 text-sm text-slate-500 dark:text-slate-400">
                             Payroll Trend (6 months)
                         </p>
-                        <div className="flex h-32 items-end gap-2">
-                            {payrollTrend.map((item, index) => {
-                                const maxVal = Math.max(
-                                    ...payrollTrend.map((t) => t.amount || 0)
-                                );
-                                const height =
-                                    maxVal > 0
-                                        ? ((item.amount || 0) / maxVal) * 100
-                                        : 0;
-                                return (
-                                    <div
-                                        key={index}
-                                        className="flex flex-1 flex-col items-center"
-                                    >
-                                        <div
-                                            className="w-full rounded-t bg-purple-500"
-                                            style={{
-                                                height: `${Math.max(
-                                                    height,
-                                                    5
-                                                )}%`,
-                                            }}
-                                        />
-                                        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                                            {item.month.split(" ")[0]}
-                                        </p>
-                                    </div>
-                                );
-                            })}
+                        <div className="h-32">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <AreaChart
+                                    data={payrollTrend.map((item) => ({
+                                        name: item.month.split(" ")[0],
+                                        value: item.amount || 0,
+                                    }))}
+                                    margin={{
+                                        top: 5,
+                                        right: 5,
+                                        left: 5,
+                                        bottom: 5,
+                                    }}
+                                >
+                                    <defs>
+                                        <linearGradient
+                                            id="colorPayroll"
+                                            x1="0"
+                                            y1="0"
+                                            x2="0"
+                                            y2="1"
+                                        >
+                                            <stop
+                                                offset="5%"
+                                                stopColor="#a855f7"
+                                                stopOpacity={0.4}
+                                            />
+                                            <stop
+                                                offset="95%"
+                                                stopColor="#a855f7"
+                                                stopOpacity={0}
+                                            />
+                                        </linearGradient>
+                                    </defs>
+                                    <XAxis
+                                        dataKey="name"
+                                        axisLine={false}
+                                        tickLine={false}
+                                        tick={{ fontSize: 11, fill: "#94a3b8" }}
+                                    />
+                                    <Tooltip
+                                        contentStyle={{
+                                            backgroundColor: "#1e293b",
+                                            border: "none",
+                                            borderRadius: "8px",
+                                            color: "#fff",
+                                        }}
+                                        formatter={(
+                                            value: number | undefined
+                                        ) => [
+                                            formatCurrency(value || 0),
+                                            "Net Payroll",
+                                        ]}
+                                    />
+                                    <Area
+                                        type="monotone"
+                                        dataKey="value"
+                                        stroke="#a855f7"
+                                        strokeWidth={2}
+                                        fillOpacity={1}
+                                        fill="url(#colorPayroll)"
+                                    />
+                                </AreaChart>
+                            </ResponsiveContainer>
                         </div>
                     </div>
                 </div>

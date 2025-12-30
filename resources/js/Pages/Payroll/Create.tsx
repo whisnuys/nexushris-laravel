@@ -59,9 +59,9 @@ export default function PayrollCreate({
     ];
 
     const formatCurrency = (amount: number) =>
-        new Intl.NumberFormat("id-ID", {
+        new Intl.NumberFormat("en-US", {
             style: "currency",
-            currency: "IDR",
+            currency: "USD",
             minimumFractionDigits: 0,
         }).format(amount);
 
@@ -206,7 +206,7 @@ export default function PayrollCreate({
                                 className="w-full rounded-lg border border-slate-200 px-4 py-2.5 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                             />
                             <p className="mt-1 text-xs text-slate-500">
-                                Rate: Rp 50,000 per hour
+                                Rate: $50 per hour
                             </p>
                         </div>
                         <div>

@@ -54,7 +54,7 @@ function AppLayoutContent({
                         )}
                     </div>
 
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
                         <div className="relative hidden md:block">
                             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                             <input
@@ -70,6 +70,7 @@ function AppLayoutContent({
 
                         <NotificationDropdown />
 
+                        {/* Dark Mode Toggle */}
                         <button
                             onClick={toggleDarkMode}
                             className={`rounded-lg p-2 ${

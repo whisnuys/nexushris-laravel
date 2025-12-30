@@ -38,9 +38,9 @@ interface Props extends PageProps {
 
 export default function PayrollShow({ auth, payroll }: Props) {
     const formatCurrency = (amount: number) =>
-        new Intl.NumberFormat("id-ID", {
+        new Intl.NumberFormat("en-US", {
             style: "currency",
-            currency: "IDR",
+            currency: "USD",
             minimumFractionDigits: 0,
         }).format(amount);
 

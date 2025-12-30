@@ -107,9 +107,9 @@ export default function EmployeeDashboard({
     };
 
     const formatCurrency = (amount: number) => {
-        return new Intl.NumberFormat("id-ID", {
+        return new Intl.NumberFormat("en-EN", {
             style: "currency",
-            currency: "IDR",
+            currency: "USD",
             minimumFractionDigits: 0,
         }).format(amount);
     };

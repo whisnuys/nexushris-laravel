@@ -41,9 +41,9 @@ export default function PayrollIndex({
     canManage,
 }: Props) {
     const formatCurrency = (amount: number) =>
-        new Intl.NumberFormat("id-ID", {
+        new Intl.NumberFormat("en-US", {
             style: "currency",
-            currency: "IDR",
+            currency: "USD",
             minimumFractionDigits: 0,
         }).format(amount);
 
